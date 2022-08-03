@@ -9,5 +9,11 @@ namespace VaccineCovidManager.DonViYTes
 {
     public interface IDonViYTeRepository : IRepository<DonViYTe, Guid>
     {
+        Task<List<DonViYTe>> GetListAsync(
+                int skipCount,
+                int maxResultCount,
+                string sorting,
+                string filter
+            );
     }
 }

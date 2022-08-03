@@ -9,5 +9,11 @@ namespace VaccineCovidManager.NoiSanXuats
 {
     public interface INoiSanXuatRepository : IRepository<NoiSanXuat, Guid>
     {
+        Task<List<NoiSanXuat>> GetListAsync(
+                int skipCount,
+                int maxResultCount,
+                string sorting,
+                string filter
+            );
     }
 }
