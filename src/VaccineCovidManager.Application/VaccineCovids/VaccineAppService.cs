@@ -28,7 +28,7 @@ namespace VaccineCovidManager.VaccineCovids
             throw new NotImplementedException();
         }
 
-        public Task<List<PagedResultRequestDto>> GetListAsync(GetVaccineInput input)
+        public Task<PagedResultDto<VaccineCovidDto>> GetListAsync(GetVaccineInput input)
         {
             throw new NotImplementedException();
         }
