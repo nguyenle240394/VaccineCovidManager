@@ -9,6 +9,12 @@ namespace VaccineCovidManager.ChiTietNhaps
 {
     public interface IChiTietNhapRepository : IRepository<ChiTietNhap, Guid>
     {
-
+        Task<List<ChiTietNhap>> GetListAsync(
+                int skipCout,
+                int maxResultCount,
+                string sorting,
+                string filter
+            );
+        
     }
 }

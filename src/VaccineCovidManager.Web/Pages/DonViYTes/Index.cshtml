@@ -1,0 +1,17 @@
+﻿@page
+@model VaccineCovidManager.Web.Pages.DonViYTes.IndexModel
+@using Microsoft.Extensions.Localization
+@using VaccineCovidManager.Localization
+@inject IStringLocalizer<VaccineCovidManagerResource> L
+@section scripts
+{
+    <abp-script src="/Pages/DonViYTes/Index.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-card-title>@L["Đơn vị y tế"]</abp-card-title>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="DonViYTeTable"/>
+    </abp-card-body>
+</abp-card>

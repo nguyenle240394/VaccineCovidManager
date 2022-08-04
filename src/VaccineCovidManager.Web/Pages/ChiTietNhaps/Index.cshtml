@@ -1,0 +1,29 @@
+﻿@page
+@model VaccineCovidManager.Web.Pages.ChiTietNhaps.IndexModel
+@using Microsoft.Extensions.Localization
+@using VaccineCovidManager.Localization
+@inject IStringLocalizer<VaccineCovidManagerResource> L
+@section scripts
+{
+    <abp-script src="/Pages/ChiTietNhaps/Index.js" />
+}
+<abp-card>
+    <abp-card-header>
+        
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Nhập Vaccine"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="NhapVaccine"
+                            text="@L["Nhập vaccine"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="NhapVaccineTable"/>
+    </abp-card-body>
+</abp-card>
+

@@ -1,0 +1,17 @@
+﻿@page
+@model VaccineCovidManager.Web.Pages.NoiSanXuats.IndexModel
+@using Microsoft.Extensions.Localization
+@using VaccineCovidManager.Localization
+@inject IStringLocalizer<VaccineCovidManagerResource> L
+@section scripts
+{
+    <abp-script src="/Pages/NoiSanXuats/Index.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-card-title>@L["Nhà sản xuất"]</abp-card-title>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="NoiSanXuatTable"/>
+    </abp-card-body>
+</abp-card>

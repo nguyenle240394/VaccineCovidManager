@@ -34,6 +34,31 @@ public class VaccineCovidManagerMenuContributor : IMenuContributor
             )
         );
 
+        context.Menu.AddItem(
+                new ApplicationMenuItem(
+                        "VaccineCoidManager.VaccineCovids",
+                        l["Menu:VaccineCovids"],
+                        url: "/VaccineCovids")
+            );
+        context.Menu.AddItem(
+                new ApplicationMenuItem(
+                        "VaccineCoidManager.NoiSanXuats",
+                        l["Menu:NoiSanXuats"],
+                        url: "/NoiSanXuats")
+            );
+        context.Menu.AddItem(
+                new ApplicationMenuItem(
+                        "VaccineCoidManager.DonViYTes",
+                        l["Menu:DonViYTes"],
+                        url: "/DonViYTes")
+            );
+        context.Menu.AddItem(
+                new ApplicationMenuItem(
+                        "VaccineCoidManager.ChiTietNhaps",
+                        l["Menu:ChiTietNhaps"],
+                        url: "/ChiTietNhaps")
+            );
+
         if (MultiTenancyConsts.IsEnabled)
         {
             administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);

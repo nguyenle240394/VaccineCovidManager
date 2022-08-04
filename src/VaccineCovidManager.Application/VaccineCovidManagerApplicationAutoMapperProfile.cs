@@ -21,5 +21,7 @@ public class VaccineCovidManagerApplicationAutoMapperProfile : Profile
         CreateMap<DonViYTe, DonViYTeDto>();
         CreateMap<CreateUpdateChiTietNhapDto, ChiTietNhap>();
         CreateMap<ChiTietNhap, ChiTietNhapDto>();
+        CreateMap<NoiSanXuat, GetNoiSanXuatLookup>();
+        CreateMap<VaccineCovid, GetVaccineCovidLookup>();
     }
 }

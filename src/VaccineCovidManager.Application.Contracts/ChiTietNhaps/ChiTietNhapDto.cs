@@ -8,9 +8,12 @@ namespace VaccineCovidManager.ChiTietNhaps
     public class ChiTietNhapDto : AuditedEntityDto<Guid>
     {
         public Guid NoiSxID { get; set; }
+        public string TenNoiSX { get; set; }
         public Guid VaccineId { get; set; }
+        public string TenVaccine { get; set; }
         public DateTime NgaySx { get; set; }
         public string HanSuDung { get; set; }
         public int SLNhap { get; set; }
+        public string[] DanhSachVaccine  { get; set; }
     }
 }

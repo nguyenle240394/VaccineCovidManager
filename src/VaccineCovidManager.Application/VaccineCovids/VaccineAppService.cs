@@ -61,5 +61,12 @@ namespace VaccineCovidManager.VaccineCovids
             await _vaccineRepository.UpdateAsync(vaccine);
             return ObjectMapper.Map<VaccineCovid, VaccineCovidDto>(vaccine);
         }
+
+        public async Task<VaccineCovidDto> FindVaccineById(Guid id)
+        {
+            var vaccine = await _vaccineRepository.FindAsync(id);
+            return ObjectMapper.Map<VaccineCovid, VaccineCovidDto>(vaccine);
+        }
+
     }
 }

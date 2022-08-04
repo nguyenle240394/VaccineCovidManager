@@ -13,5 +13,6 @@ namespace VaccineCovidManager.VaccineCovids
         Task<VaccineCovidDto> CreateAsync(CreateUpdateVaccineDto input);
         Task<bool> DeleteAsync(Guid id);
         Task<VaccineCovidDto> UpdateAsync(Guid id, CreateUpdateVaccineDto input);
+        Task<VaccineCovidDto> FindVaccineById(Guid id);
     }
 }
