@@ -10,9 +10,10 @@ namespace VaccineCovidManager.VaccineCovids
     public interface IVaccineAppService : IApplicationService
     {
         Task<PagedResultDto<VaccineCovidDto>> GetListAsync(GetVaccineInput input);
+        Task<VaccineCovidDto> GetVaccineCovidAsync(Guid id);
         Task<VaccineCovidDto> CreateAsync(CreateUpdateVaccineDto input);
-        Task<bool> DeleteAsync(Guid id);
         Task<VaccineCovidDto> UpdateAsync(Guid id, CreateUpdateVaccineDto input);
+        Task<bool> DeleteAsync(Guid id);
         Task<VaccineCovidDto> FindVaccineById(Guid id);
     }
 }

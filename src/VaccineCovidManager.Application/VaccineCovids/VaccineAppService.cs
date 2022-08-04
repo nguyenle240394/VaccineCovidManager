@@ -16,23 +16,6 @@ namespace VaccineCovidManager.VaccineCovids
         {
             _vaccineRepository = vaccineRepository;
         }
-        public async Task<VaccineCovidDto> CreateAsync(CreateUpdateVaccineDto input)
-        {
-            var vaccine = ObjectMapper.Map<CreateUpdateVaccineDto, VaccineCovid>(input);
-            await _vaccineRepository.InsertAsync(vaccine);
-            return ObjectMapper.Map<VaccineCovid, VaccineCovidDto>(vaccine);
-        }
-
-        public async Task<bool> DeleteAsync(Guid id)
-        {
-            var vaccine = await _vaccineRepository.FindAsync(id);
-            if (vaccine != null)
-            {
-                await _vaccineRepository.DeleteAsync(vaccine);
-                return true;
-            }
-            return false;
-        }
 
         public async Task<PagedResultDto<VaccineCovidDto>> GetListAsync(GetVaccineInput input)
         {
@@ -59,6 +42,19 @@ namespace VaccineCovidManager.VaccineCovids
                     vaccinedto);
         }
 
+        public async Task<VaccineCovidDto> GetVaccineCovidAsync(Guid id)
+        {
+            var vaccinecovid = await _vaccineRepository.FindAsync(id);
+            return ObjectMapper.Map<VaccineCovid, VaccineCovidDto>(vaccinecovid);
+        }
+
+        public async Task<VaccineCovidDto> CreateAsync(CreateUpdateVaccineDto input)
+        {
+            var vaccine = ObjectMapper.Map<CreateUpdateVaccineDto, VaccineCovid>(input);
+            await _vaccineRepository.InsertAsync(vaccine);
+            return ObjectMapper.Map<VaccineCovid, VaccineCovidDto>(vaccine);
+        }
+
         public async Task<VaccineCovidDto> UpdateAsync(Guid id, CreateUpdateVaccineDto input)
         {
             var vaccine = await _vaccineRepository.FindAsync(id);
@@ -68,11 +64,21 @@ namespace VaccineCovidManager.VaccineCovids
             return ObjectMapper.Map<VaccineCovid, VaccineCovidDto>(vaccine);
         }
 
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var vaccine = await _vaccineRepository.FindAsync(id);
+            if (vaccine != null)
+            {
+                await _vaccineRepository.DeleteAsync(vaccine);
+                return true;
+            }
+            return false;
+        }
+
         public async Task<VaccineCovidDto> FindVaccineById(Guid id)
         {
             var vaccine = await _vaccineRepository.FindAsync(id);
             return ObjectMapper.Map<VaccineCovid, VaccineCovidDto>(vaccine);
         }
-
     }
 }

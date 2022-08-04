@@ -12,5 +12,7 @@ public class VaccineCovidManagerWebAutoMapperProfile : Profile
         CreateMap<Pages.ChiTietNhaps.CreateModalModel.CreateChiTietNhapViewModal, CreateUpdateChiTietNhapDto>();
        
         CreateMap<Pages.VaccineCovids.CreateModalModel.CreateVaccineCovidViewModal, CreateUpdateVaccineDto>();
+        CreateMap<VaccineCovidDto, Pages.VaccineCovids.EditModalModel.EditVaccineCovidViewModal>();
+        CreateMap<Pages.VaccineCovids.EditModalModel.EditVaccineCovidViewModal, CreateUpdateVaccineDto>();
     }
 }

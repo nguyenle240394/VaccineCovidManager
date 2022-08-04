@@ -1,6 +1,7 @@
 ﻿using AutoMapper.Internal.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -9,28 +10,30 @@ using Volo.Abp;
 
 namespace VaccineCovidManager.Web.Pages.VaccineCovids
 {
-    public class CreateModalModel : VaccineCovidManagerPageModel
+    public class EditModalModel : VaccineCovidManagerPageModel
     {
         private readonly IVaccineAppService _vaccineAppService;
 
-        public CreateModalModel(IVaccineAppService vaccineAppService)
+        public EditModalModel(IVaccineAppService vaccineAppService)
         {
             _vaccineAppService = vaccineAppService;
         }
 
         [BindProperty]
-        public CreateVaccineCovidViewModal VaccineCovids { get; set; }
-        public void OnGet()
+        public EditVaccineCovidViewModal EditVaccineCovids { get; set; }
+        public async Task OnGetAsync(Guid Id)
         {
-            VaccineCovids = new CreateVaccineCovidViewModal();
+            var vaccine = await _vaccineAppService.GetVaccineCovidAsync(Id);
+            EditVaccineCovids = ObjectMapper.Map<VaccineCovidDto, EditVaccineCovidViewModal>(vaccine);
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if(VaccineCovids.SoLuongTonKho >= 0)
+            if (EditVaccineCovids.SoLuongTonKho >= 0)
             {
-                await _vaccineAppService.CreateAsync(
-                    ObjectMapper.Map<CreateVaccineCovidViewModal, CreateUpdateVaccineDto>(VaccineCovids));
+                await _vaccineAppService.UpdateAsync(
+                    EditVaccineCovids.Id,
+                    ObjectMapper.Map<EditVaccineCovidViewModal, CreateUpdateVaccineDto>(EditVaccineCovids));
             }
             else
             {
@@ -39,12 +42,12 @@ namespace VaccineCovidManager.Web.Pages.VaccineCovids
             return NoContent();
         }
 
-        public class CreateVaccineCovidViewModal
+        public class EditVaccineCovidViewModal
         {
-            [Required]
+            [HiddenInput]
+            public Guid Id { get; set; }
             [DisplayName("Tên Vaccine")]
             public string TenVaccine { get; set; }
-            [Required]
             [DisplayName("Số lượng tồn kho")]
             public int SoLuongTonKho { get; set; }
         }

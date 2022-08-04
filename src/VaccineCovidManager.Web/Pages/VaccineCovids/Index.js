@@ -5,6 +5,7 @@ $(function () {
         viewUrl: abp.appPath + 'VaccineCovids/CreateModal',
     });*/
     var createModal = new abp.ModalManager(abp.appPath + 'VaccineCovids/CreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'VaccineCovids/EditModal');
 
     var datatable = $('#VaccineTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
@@ -37,11 +38,53 @@ $(function () {
                             }).toLocaleString(luxon.DateTime.DATETIME_SHORT);
                     }
                 },
-                
+                {
+                    title: l('Hành động'),
+                    rowAction: {
+                        items:
+                            [
+                                {
+                                    text: l('Sửa'),
+                                    iconClass: "fa fa-pencil-square-o",
+                                    //visible: abp.auth.isGranted('VaccinecovidManager.VaccineCovids.Edit'),
+                                    action: function (data) {
+                                        editModal.open({ id: data.record.id });
+                                    }
+                                },
+                                {
+                                    text: l('Xóa'),
+                                    iconClass: "fa fa-trash-o",
+                                    //visible: abp.auth.isGranted('VaccinecovidManager.VaccineCovids.Delete'),
+                                    confirmMessage: function (data) {
+                                        return l(
+                                            'Thông báo Xác nhận xóa Vaccine Covid',
+                                            data.record.name
+                                        );
+                                    },
+                                    action: function (data) {
+                                        vaccineCovidManager.vaccineCovids.vaccine
+                                            .delete(data.record.id)
+                                            .then(function (data) {
+                                                if (data) {
+                                                    abp.notify.info(l('Xóa thành công'));
+                                                    datatable.ajax.reload();
+                                                } else {
+                                                    abp.message.error(l("Xóa thất bại"));
+                                                }
+                                            });
+                                    }
+                                }
+                            ]
+                    }
+                }
             ]
         })
     );
     createModal.onResult(function () {
+        datatable.ajax.reload();
+    });
+
+    editModal.onResult(function () {
         datatable.ajax.reload();
     });
 
