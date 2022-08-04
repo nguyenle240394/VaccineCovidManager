@@ -46,11 +46,17 @@ namespace VaccineCovidManager.VaccineCovids
                     input.Sorting,
                     input.Filter
                 );
+            var vaccinedto = ObjectMapper.Map<List<VaccineCovid>, List<VaccineCovidDto>>(vaccine);
             var count = await _vaccineRepository.GetCountAsync();
+            var stt = 1;
+            foreach(var item in vaccinedto)
+            {
+                item.Stt = stt;
+                stt++;
+            }
             return new PagedResultDto<VaccineCovidDto>(
                     count,
-                    ObjectMapper.Map<List<VaccineCovid>, List<VaccineCovidDto>>(vaccine)
-                );
+                    vaccinedto);
         }
 
         public async Task<VaccineCovidDto> UpdateAsync(Guid id, CreateUpdateVaccineDto input)

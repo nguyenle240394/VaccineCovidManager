@@ -1,13 +1,12 @@
-﻿var datatable;
-var l;
+﻿
 $(function () {
-    l = abp.localization.getResource('VaccinecovidManager');
+    var l = abp.localization.getResource('VaccinecovidManager');
     /*var createModal = new abp.ModalManager({
         viewUrl: abp.appPath + 'VaccineCovids/CreateModal',
     });*/
-    var editModal = new abp.ModalManager(abp.appPath + 'VaccineCovids/CreateModal');
+    var createModal = new abp.ModalManager(abp.appPath + 'VaccineCovids/CreateModal');
 
-    datatable = $('#VaccineTable').DataTable(
+    var datatable = $('#VaccineTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
             paging: true,
@@ -17,7 +16,11 @@ $(function () {
             ajax: abp.libs.datatables.createAjax(vaccineCovidManager.vaccineCovids.vaccine.getList),
             columnDefs: [
                 {
-                    title: l("Ten Vaccine"),
+                    title: l("STT"),
+                    data: 'stt'
+                },
+                {
+                    title: l("Tên Vaccine"),
                     data: "tenVaccine"
                 },
                 {
@@ -38,4 +41,12 @@ $(function () {
             ]
         })
     );
+    createModal.onResult(function () {
+        datatable.ajax.reload();
+    });
+
+    $('#VaccineCovidButton').click(function (e) {
+        e.preventDefault();
+        createModal.open();
+    });
 })

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VaccineCovidManager.ChiTietNhaps;
+using VaccineCovidManager.VaccineCovids;
 
 namespace VaccineCovidManager.Web;
 
@@ -9,5 +10,7 @@ public class VaccineCovidManagerWebAutoMapperProfile : Profile
     {
         //Define your AutoMapper configuration here for the Web project.
         CreateMap<Pages.ChiTietNhaps.CreateModalModel.CreateChiTietNhapViewModal, CreateUpdateChiTietNhapDto>();
+       
+        CreateMap<Pages.VaccineCovids.CreateModalModel.CreateVaccineCovidViewModal, CreateUpdateVaccineDto>();
     }
 }
