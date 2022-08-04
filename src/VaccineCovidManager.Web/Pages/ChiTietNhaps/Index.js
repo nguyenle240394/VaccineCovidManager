@@ -16,6 +16,10 @@ $(function () {
             ajax: abp.libs.datatables.createAjax(vaccineCovidManager.chiTietNhaps.chiTietNhap.getList),
             columnDefs: [
                 {
+                    title: l("STT"),
+                    data: 'stt'
+                },
+                {
                     title: l("Nhà sản xuất"),
                     data: "tenNoiSX"
                 },

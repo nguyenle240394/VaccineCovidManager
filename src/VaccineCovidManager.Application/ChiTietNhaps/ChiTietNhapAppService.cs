@@ -24,17 +24,6 @@ namespace VaccineCovidManager.ChiTietNhaps
             _noiSanXuatRepository = noiSanXuatRepository;
             _vaccineCovidRepository = vaccineCovidRepository;
         }
-        public async Task<ChiTietNhapDto> CreateAsync(CreateUpdateChiTietNhapDto input)
-        {
-            var chiTietNhap = ObjectMapper.Map<CreateUpdateChiTietNhapDto, ChiTietNhap>(input);
-            await _chiTietNhapRepository.InsertAsync(chiTietNhap);
-            return ObjectMapper.Map<ChiTietNhap, ChiTietNhapDto>(chiTietNhap);
-        }
-
-        public Task<bool> DeleteAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<PagedResultDto<ChiTietNhapDto>> GetListAsync(GetChiTietNhapInput input)
         {
@@ -49,14 +38,15 @@ namespace VaccineCovidManager.ChiTietNhaps
                     input.Filter
                 );
             var chiTietNhapDto = ObjectMapper.Map<List<ChiTietNhap>, List<ChiTietNhapDto>>(chiTietNhap);
+            var stt = 1;
             foreach (var item in chiTietNhapDto)
             {
+                item.Stt = stt++;
                 var namevaccine = await _vaccineCovidRepository.FindAsync(item.VaccineId);
                 var noiSX = await _noiSanXuatRepository.FindAsync(item.NoiSxID);
                 item.TenVaccine = namevaccine.TenVaccine;
                 item.TenNoiSX = noiSX.TenNhaSX;
             }
-            
             var count = await _chiTietNhapRepository.GetCountAsync();
             return new PagedResultDto<ChiTietNhapDto>(
                     count,
@@ -82,7 +72,19 @@ namespace VaccineCovidManager.ChiTietNhaps
                 );
         }
 
+        public async Task<ChiTietNhapDto> CreateAsync(CreateUpdateChiTietNhapDto input)
+        {
+            var chiTietNhap = ObjectMapper.Map<CreateUpdateChiTietNhapDto, ChiTietNhap>(input);
+            await _chiTietNhapRepository.InsertAsync(chiTietNhap);
+            return ObjectMapper.Map<ChiTietNhap, ChiTietNhapDto>(chiTietNhap);
+        }
+
         public Task<ChiTietNhapDto> UpdateAsync(Guid id, CreateUpdateChiTietNhapDto input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }

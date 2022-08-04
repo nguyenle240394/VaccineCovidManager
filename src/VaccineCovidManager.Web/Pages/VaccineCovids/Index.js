@@ -39,7 +39,7 @@ $(function () {
                     }
                 },
                 {
-                    title: l('Hành động'),
+                    title: l('Tác vụ'),
                     rowAction: {
                         items:
                             [

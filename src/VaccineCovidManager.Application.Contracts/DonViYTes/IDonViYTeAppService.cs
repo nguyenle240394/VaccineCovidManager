@@ -9,6 +9,7 @@ namespace VaccineCovidManager.DonViYTes
     public interface IDonViYTeAppService : IApplicationService
     {
         Task<PagedResultDto<DonViYTeDto>> GetListAsync(GetDonViYTeInput input);
+        Task<DonViYTeDto> GetDonViYTeAsync(Guid id);
         Task<DonViYTeDto> CreateAsync(CreateUpdateDonViYTeDto input);
         Task<DonViYTeDto> UpdateAsync(Guid id, CreateUpdateDonViYTeDto input);
         Task<bool> DeleteAsync(Guid id);

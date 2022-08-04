@@ -9,7 +9,17 @@
 }
 <abp-card>
     <abp-card-header>
-        <abp-card-title>@L["Nhà sản xuất"]</abp-card-title>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Nhà sản xuất"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="NoiSanXuatButton"
+                            text="@L["Tạo mới Nhà sản xuất"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+            </abp-column>
+        </abp-row>
     </abp-card-header>
     <abp-card-body>
         <abp-table striped-rows="true" id="NoiSanXuatTable"/>
