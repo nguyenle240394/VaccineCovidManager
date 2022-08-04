@@ -5,6 +5,7 @@ $(function () {
     /*var createModal = new abp.ModalManager({
         viewUrl: abp.appPath + 'VaccineCovids/CreateModal',
     });*/
+    var editModal = new abp.ModalManager(abp.appPath + 'VaccineCovids/CreateModal');
 
     datatable = $('#VaccineTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
