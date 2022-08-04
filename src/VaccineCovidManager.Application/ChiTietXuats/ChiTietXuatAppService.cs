@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VaccineCovidManager.DonViYTes;
+using VaccineCovidManager.VaccineCovids;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 namespace VaccineCovidManager.ChiTietXuats
 {
-    public class ChiTietNhapAppService : ApplicationService, IChiTietXuatAppService
+    public class ChiTietXuatAppService : ApplicationService, IChiTietXuatAppService
     {
         private readonly IChiTietXuatRepository _chiTietXuatRepository;
+        private readonly IDonViYTeRepository _donViYTeRepository;
+        private readonly IVaccineCovidRepository _vaccineCovidRepository;
 
-        public ChiTietNhapAppService(IChiTietXuatRepository chiTietXuatRepository)
+        public ChiTietXuatAppService(IChiTietXuatRepository chiTietXuatRepository,
+            IDonViYTeRepository donViYTeRepository,
+            IVaccineCovidRepository vaccineCovidRepository)
         {
             _chiTietXuatRepository = chiTietXuatRepository;
+            _donViYTeRepository = donViYTeRepository;
+            _vaccineCovidRepository = vaccineCovidRepository;
         }
         public async Task<ChiTietXuatDto> CreateAsync(CreateUpdateChiTietXuatDto input)
         {
@@ -41,6 +49,14 @@ namespace VaccineCovidManager.ChiTietXuats
                 );
 
             var chiTietXuatDto = ObjectMapper.Map<List<ChiTietXuat>, List<ChiTietXuatDto>>(chiTietXuat);
+            foreach (var item in chiTietXuatDto)
+            {
+                var vacineId = await _vaccineCovidRepository.FindAsync(item.VaccineID);
+                var donViYTeId = await _donViYTeRepository.FindAsync(item.DonViID);
+                item.TenVaccine = vacineId.TenVaccine;
+                item.DonViYTe = donViYTeId.TenDonViYTe;
+            }
+
             var count = await _chiTietXuatRepository.GetCountAsync();
             return new PagedResultDto<ChiTietXuatDto>(
                     count, 

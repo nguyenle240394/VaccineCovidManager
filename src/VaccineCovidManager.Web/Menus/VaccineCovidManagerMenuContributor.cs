@@ -58,6 +58,12 @@ public class VaccineCovidManagerMenuContributor : IMenuContributor
                         l["Menu:ChiTietNhaps"],
                         url: "/ChiTietNhaps")
             );
+        context.Menu.AddItem(
+                new ApplicationMenuItem(
+                        "VaccineCoidManager.ChiTietXuats",
+                        l["Menu:ChiTietXuats"],
+                        url: "/ChiTietXuats")
+            );
 
         if (MultiTenancyConsts.IsEnabled)
         {
