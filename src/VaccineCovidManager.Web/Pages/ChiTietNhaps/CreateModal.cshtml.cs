@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VaccineCovidManager.ChiTietNhaps;
 using VaccineCovidManager.VaccineCovids;
+using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace VaccineCovidManager.Web.Pages.ChiTietNhaps
@@ -45,16 +46,23 @@ namespace VaccineCovidManager.Web.Pages.ChiTietNhaps
 
         public async Task<IActionResult> OnPostAsync()
         {
-            NhapVaccine.HanSuDung += " Tháng";
+            if(NhapVaccine.SLNhap > 0)
+            {
+                NhapVaccine.HanSuDung += " Tháng";
 
-            var createUpdasteVaccine = new CreateUpdateVaccineDto();
-            var vaccineDto = await _vaccineAppService.FindVaccineById(NhapVaccine.VaccineId);
-            createUpdasteVaccine.TenVaccine = vaccineDto.TenVaccine;
-            createUpdasteVaccine.SoLuongTonKho = vaccineDto.SoLuongTonKho + NhapVaccine.SLNhap;
-            await _vaccineAppService.UpdateAsync(NhapVaccine.VaccineId, createUpdasteVaccine);
+                var createUpdasteVaccine = new CreateUpdateVaccineDto();
+                var vaccineDto = await _vaccineAppService.FindVaccineById(NhapVaccine.VaccineId);
+                createUpdasteVaccine.TenVaccine = vaccineDto.TenVaccine;
+                createUpdasteVaccine.SoLuongTonKho = vaccineDto.SoLuongTonKho + NhapVaccine.SLNhap;
+                await _vaccineAppService.UpdateAsync(NhapVaccine.VaccineId, createUpdasteVaccine);
 
-            var chitietNhapVaccineDto = ObjectMapper.Map<CreateChiTietNhapViewModal, CreateUpdateChiTietNhapDto>(NhapVaccine);
-            await _chiTietNhapAppService.CreateAsync(chitietNhapVaccineDto);
+                var chitietNhapVaccineDto = ObjectMapper.Map<CreateChiTietNhapViewModal, CreateUpdateChiTietNhapDto>(NhapVaccine);
+                await _chiTietNhapAppService.CreateAsync(chitietNhapVaccineDto);
+            }
+            else
+            {
+                throw new UserFriendlyException(L["Số lượng Vaccine nhập phải lớn hơn 0"]);
+            }
             return NoContent();
         }
 

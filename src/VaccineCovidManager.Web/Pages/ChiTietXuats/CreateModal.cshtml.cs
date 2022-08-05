@@ -46,18 +46,25 @@ namespace VaccineCovidManager.Web.Pages.ChiTietXuats
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var vaccineDto = await _vaccineAppService.FindVaccineById(ChiTietXuat.VaccineID);
-            var createVaccineDto = new CreateUpdateVaccineDto();
-            var mess = "Số vaccine " + '"' +vaccineDto.TenVaccine +'"'+ " trong kho còn " + vaccineDto.SoLuongTonKho + " (liều) không đủ để xuất";
-            if (vaccineDto.SoLuongTonKho < ChiTietXuat.SoLuongXuat)
+            if(ChiTietXuat.SoLuongXuat > 0)
             {
-                throw new UserFriendlyException(L[mess]);
+                var vaccineDto = await _vaccineAppService.FindVaccineById(ChiTietXuat.VaccineID);
+                var createVaccineDto = new CreateUpdateVaccineDto();
+                var mess = "Số vaccine " + '"' + vaccineDto.TenVaccine + '"' + " trong kho còn " + vaccineDto.SoLuongTonKho + " (liều) không đủ để xuất";
+                if (vaccineDto.SoLuongTonKho < ChiTietXuat.SoLuongXuat)
+                {
+                    throw new UserFriendlyException(L[mess]);
+                }
+                createVaccineDto.TenVaccine = vaccineDto.TenVaccine;
+                createVaccineDto.SoLuongTonKho = vaccineDto.SoLuongTonKho - ChiTietXuat.SoLuongXuat;
+                await _vaccineAppService.UpdateAsync(vaccineDto.Id, createVaccineDto);
+                var upDateChiTiet = ObjectMapper.Map<CreateChiTietXuatViewModal, CreateUpdateChiTietXuatDto>(ChiTietXuat);
+                await _chiTietXuatAppService.CreateAsync(upDateChiTiet);
             }
-            createVaccineDto.TenVaccine = vaccineDto.TenVaccine;
-            createVaccineDto.SoLuongTonKho = vaccineDto.SoLuongTonKho - ChiTietXuat.SoLuongXuat;
-            await _vaccineAppService.UpdateAsync(vaccineDto.Id, createVaccineDto);
-            var upDateChiTiet = ObjectMapper.Map<CreateChiTietXuatViewModal, CreateUpdateChiTietXuatDto>(ChiTietXuat);
-            await _chiTietXuatAppService.CreateAsync(upDateChiTiet);
+            else
+            {
+                throw new UserFriendlyException(L["Số lượng Vaccine xuất phải lớn hơn 0"]);
+            }
             return NoContent();
         }
         public class CreateChiTietXuatViewModal
