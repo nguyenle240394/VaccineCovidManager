@@ -13,5 +13,6 @@ namespace VaccineCovidManager.DonViYTes
         Task<DonViYTeDto> CreateAsync(CreateUpdateDonViYTeDto input);
         Task<DonViYTeDto> UpdateAsync(Guid id, CreateUpdateDonViYTeDto input);
         Task<bool> DeleteAsync(Guid id);
+        Task<bool> CheckDonViYTeExist(string donViYTe);
     }
 }

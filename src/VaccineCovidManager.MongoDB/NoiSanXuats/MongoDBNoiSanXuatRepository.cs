@@ -38,10 +38,10 @@ namespace VaccineCovidManager.NoiSanXuats
                 .ToListAsync();
         }
 
-        public async Task<NoiSanXuat> FindByNoiSanXuatWithIDAsync(Guid id)
+        public async Task<NoiSanXuat> FindByNoiSanXuatAsync(string tenNsx)
         {
             var queryable = await GetMongoQueryableAsync();
-            return await queryable.FirstOrDefaultAsync(c => c.Id == id);
+            return await queryable.FirstOrDefaultAsync(c => c.TenNhaSX == tenNsx);
         }
     }
 }

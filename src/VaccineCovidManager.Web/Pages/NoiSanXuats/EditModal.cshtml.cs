@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using VaccineCovidManager.NoiSanXuats;
+using Volo.Abp;
 
 namespace VaccineCovidManager.Web.Pages.NoiSanXuats
 {
@@ -27,9 +28,17 @@ namespace VaccineCovidManager.Web.Pages.NoiSanXuats
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _noiSanXuatAppService.UpdateAsync(
-                EditNoiSanXuats.Id,
-                ObjectMapper.Map<EditNoiSanXuatViewModal, CreateUpdateNoiSanXuatDto>(EditNoiSanXuats));
+            var noiSanXuatExist = await _noiSanXuatAppService.CheckTenNoiSanXuatExist(EditNoiSanXuats.TenNhaSX);
+            if (noiSanXuatExist == false)
+            {
+                await _noiSanXuatAppService.UpdateAsync(
+                    EditNoiSanXuats.Id,
+                    ObjectMapper.Map<EditNoiSanXuatViewModal, CreateUpdateNoiSanXuatDto>(EditNoiSanXuats));
+            }
+            else
+            {
+                throw new UserFriendlyException(L["Nhà sản xuất " + EditNoiSanXuats.TenNhaSX + " đã tồn tại"]);
+            }
             return NoContent();
         }
 

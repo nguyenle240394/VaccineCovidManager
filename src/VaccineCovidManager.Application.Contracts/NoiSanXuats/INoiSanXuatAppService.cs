@@ -13,5 +13,6 @@ namespace VaccineCovidManager.NoiSanXuats
         Task<NoiSanXuatDto> CreateAsync(CreateUpdateNoiSanXuatDto input);
         Task<NoiSanXuatDto> UpdateAsync(Guid id, CreateUpdateNoiSanXuatDto input);
         Task<bool> DeleteAsync(Guid id);
+        Task<bool> CheckTenNoiSanXuatExist(string tenNsx);
     }
 }

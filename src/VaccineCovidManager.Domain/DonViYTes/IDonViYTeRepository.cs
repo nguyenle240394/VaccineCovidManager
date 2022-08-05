@@ -15,5 +15,6 @@ namespace VaccineCovidManager.DonViYTes
                 string sorting,
                 string filter
             );
+        Task<DonViYTe> FindByDonViYTeAsync(string donViYTe);
     }
 }

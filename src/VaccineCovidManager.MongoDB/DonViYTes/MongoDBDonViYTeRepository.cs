@@ -11,7 +11,8 @@ using Volo.Abp.MongoDB;
 
 namespace VaccineCovidManager.DonViYTes
 {
-    public class MongoDBDonViYTeRepository : MongoDbRepository<VaccineCovidManagerMongoDbContext, DonViYTe, Guid>, IDonViYTeRepository
+    public class MongoDBDonViYTeRepository 
+        : MongoDbRepository<VaccineCovidManagerMongoDbContext, DonViYTe, Guid>, IDonViYTeRepository
     {
         public MongoDBDonViYTeRepository(IMongoDbContextProvider<VaccineCovidManagerMongoDbContext> dbContextProvider) : base(dbContextProvider)
         {
@@ -34,6 +35,12 @@ namespace VaccineCovidManager.DonViYTes
                 .Skip(skipCount)
                 .Take(maxResultCount)
                 .ToListAsync();
+        }
+
+        public async Task<DonViYTe> FindByDonViYTeAsync(string donViYTe)
+        {
+            var queryable = await GetMongoQueryableAsync();
+            return await queryable.FirstOrDefaultAsync(x => x.TenDonViYTe == donViYTe);
         }
     }
 }

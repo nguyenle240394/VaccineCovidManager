@@ -76,5 +76,15 @@ namespace VaccineCovidManager.NoiSanXuats
             }
             return false;
         }
+
+        public async Task<bool> CheckTenNoiSanXuatExist(string tenNsx)
+        {
+            var noiSanXuatExist = await _noiSanXuatRepository.FindByNoiSanXuatAsync(tenNsx);
+            if (noiSanXuatExist != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -75,5 +75,15 @@ namespace VaccineCovidManager.DonViYTes
             }
             return false;
         }
+
+        public async Task<bool> CheckDonViYTeExist(string donViYTe)
+        {
+            var donViYTeExist = await _donViYTeRepository.FindByDonViYTeAsync(donViYTe);
+            if (donViYTeExist != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

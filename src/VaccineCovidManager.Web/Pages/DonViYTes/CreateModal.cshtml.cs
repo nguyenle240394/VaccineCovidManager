@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using VaccineCovidManager.DonViYTes;
+using Volo.Abp;
 
 namespace VaccineCovidManager.Web.Pages.DonViYTes
 {
@@ -26,8 +27,16 @@ namespace VaccineCovidManager.Web.Pages.DonViYTes
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _donViYTeAppService.CreateAsync(
-                ObjectMapper.Map<CreateDonViYTeViewModal, CreateUpdateDonViYTeDto>(DonViYTes));
+            var donviyteExist = await _donViYTeAppService.CheckDonViYTeExist(DonViYTes.TenDonViYTe);
+            if(donviyteExist == false)
+            {
+                await _donViYTeAppService.CreateAsync(
+                    ObjectMapper.Map<CreateDonViYTeViewModal, CreateUpdateDonViYTeDto>(DonViYTes));
+            }
+            else
+            {
+                throw new UserFriendlyException(L["Đơn vị Y tế " + DonViYTes.TenDonViYTe + " đã tồn tại"]);
+            }
             return NoContent();
         }
 
