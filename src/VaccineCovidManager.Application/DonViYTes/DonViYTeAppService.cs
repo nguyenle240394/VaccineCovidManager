@@ -15,23 +15,6 @@ namespace VaccineCovidManager.DonViYTes
         {
             _donViYTeRepository = donViYTeRepository;
         }
-        public async Task<DonViYTeDto> CreateAsync(CreateUpdateDonViYTeDto input)
-        {
-            var donViYTe = ObjectMapper.Map<CreateUpdateDonViYTeDto, DonViYTe>(input);
-            await _donViYTeRepository.InsertAsync(donViYTe);
-            return ObjectMapper.Map<DonViYTe, DonViYTeDto>(donViYTe);
-        }
-
-        public async Task<bool> DeleteAsync(Guid id)
-        {
-            var donViYTe = await _donViYTeRepository.FindAsync(id);
-            if (donViYTe != null)
-            {
-                await _donViYTeRepository.DeleteAsync(donViYTe);
-                return true;
-            }
-            return false;
-        }
 
         public async Task<PagedResultDto<DonViYTeDto>> GetListAsync(GetDonViYTeInput input)
         {
@@ -45,11 +28,31 @@ namespace VaccineCovidManager.DonViYTes
                     input.Sorting,
                     input.Filter
                 );
+            var donviyteDto = ObjectMapper.Map<List<DonViYTe>, List<DonViYTeDto>>(donViYTe);
             var count = await _donViYTeRepository.GetCountAsync();
+            var stt = 1;
+            foreach(var item in donviyteDto)
+            {
+                item.Stt = stt;
+                stt++;
+            }
             return new PagedResultDto<DonViYTeDto>(
                     count,
-                    ObjectMapper.Map<List<DonViYTe>, List<DonViYTeDto>>(donViYTe)
+                    donviyteDto
                 );
+        }
+
+        public async Task<DonViYTeDto> GetDonViYTeAsync(Guid id)
+        {
+            var donviyte = await _donViYTeRepository.FindAsync(id);
+            return ObjectMapper.Map<DonViYTe, DonViYTeDto>(donviyte);
+        }
+
+        public async Task<DonViYTeDto> CreateAsync(CreateUpdateDonViYTeDto input)
+        {
+            var donViYTe = ObjectMapper.Map<CreateUpdateDonViYTeDto, DonViYTe>(input);
+            await _donViYTeRepository.InsertAsync(donViYTe);
+            return ObjectMapper.Map<DonViYTe, DonViYTeDto>(donViYTe);
         }
 
         public async Task<DonViYTeDto> UpdateAsync(Guid id, CreateUpdateDonViYTeDto input)
@@ -60,6 +63,17 @@ namespace VaccineCovidManager.DonViYTes
             donViYTe.DiaChi = input.DiaChi;
             await _donViYTeRepository.UpdateAsync(donViYTe);
             return ObjectMapper.Map<DonViYTe, DonViYTeDto>(donViYTe);
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var donViYTe = await _donViYTeRepository.FindAsync(id);
+            if (donViYTe != null)
+            {
+                await _donViYTeRepository.DeleteAsync(donViYTe);
+                return true;
+            }
+            return false;
         }
     }
 }

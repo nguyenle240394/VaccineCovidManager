@@ -7,6 +7,7 @@ namespace VaccineCovidManager.ChiTietNhaps
 {
     public class ChiTietNhapDto : AuditedEntityDto<Guid>
     {
+        public int Stt { get; set; }
         public Guid NoiSxID { get; set; }
         public string TenNoiSX { get; set; }
         public Guid VaccineId { get; set; }

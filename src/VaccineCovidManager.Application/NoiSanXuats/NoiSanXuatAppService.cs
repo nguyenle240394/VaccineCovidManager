@@ -15,23 +15,6 @@ namespace VaccineCovidManager.NoiSanXuats
         {
             _noiSanXuatRepository = noiSanXuatRepository;
         }
-        public async Task<NoiSanXuatDto> CreateAsync(CreateUpdateNoiSanXuatDto input)
-        {
-            var noiSanXuat = ObjectMapper.Map<CreateUpdateNoiSanXuatDto, NoiSanXuat>(input);
-            await _noiSanXuatRepository.InsertAsync(noiSanXuat);
-            return ObjectMapper.Map<NoiSanXuat, NoiSanXuatDto>(noiSanXuat);
-        }
-
-        public async Task<bool> DeleteAsync(Guid id)
-        {
-            var noiSX = await _noiSanXuatRepository.FindAsync(id);
-            if (noiSX != null)
-            {
-                await _noiSanXuatRepository.DeleteAsync(noiSX);
-                return true;
-            }
-            return false;
-        }
 
         public async Task<PagedResultDto<NoiSanXuatDto>> GetListAsync(GetNoiSanXuatInput input)
         {
@@ -45,11 +28,31 @@ namespace VaccineCovidManager.NoiSanXuats
                     input.Sorting,
                     input.Filter
                 );
+            var noisanxuatDto = ObjectMapper.Map<List<NoiSanXuat>, List<NoiSanXuatDto>>(noiSX);
             var count = await _noiSanXuatRepository.GetCountAsync();
+            var stt = 1;
+            foreach(var item in noisanxuatDto)
+            {
+                item.Stt = stt;
+                stt++;
+            }
             return new PagedResultDto<NoiSanXuatDto>(
                     count,
-                    ObjectMapper.Map<List<NoiSanXuat>, List<NoiSanXuatDto>>(noiSX)
+                    noisanxuatDto
                 );
+        }
+
+        public async Task<NoiSanXuatDto> GetNoiSanXuatAsync(Guid Id)
+        {
+            var noisanxuat = await _noiSanXuatRepository.FindAsync(Id);
+            return ObjectMapper.Map<NoiSanXuat, NoiSanXuatDto>(noisanxuat);
+        }
+
+        public async Task<NoiSanXuatDto> CreateAsync(CreateUpdateNoiSanXuatDto input)
+        {
+            var noiSanXuat = ObjectMapper.Map<CreateUpdateNoiSanXuatDto, NoiSanXuat>(input);
+            await _noiSanXuatRepository.InsertAsync(noiSanXuat);
+            return ObjectMapper.Map<NoiSanXuat, NoiSanXuatDto>(noiSanXuat);
         }
 
         public async Task<NoiSanXuatDto> UpdateAsync(Guid id, CreateUpdateNoiSanXuatDto input)
@@ -61,6 +64,17 @@ namespace VaccineCovidManager.NoiSanXuats
             noiSX.SDT = input.SDT;
             await _noiSanXuatRepository.UpdateAsync(noiSX);
             return ObjectMapper.Map<NoiSanXuat, NoiSanXuatDto>(noiSX);
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var noiSX = await _noiSanXuatRepository.FindAsync(id);
+            if (noiSX != null)
+            {
+                await _noiSanXuatRepository.DeleteAsync(noiSX);
+                return true;
+            }
+            return false;
         }
     }
 }

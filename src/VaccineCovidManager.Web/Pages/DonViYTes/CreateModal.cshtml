@@ -1,0 +1,23 @@
+﻿@page
+@model VaccineCovidManager.Web.Pages.DonViYTes.CreateModalModel
+@using Microsoft.Extensions.Localization
+@using VaccineCovidManager.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@inject IStringLocalizer<VaccineCovidManagerResource> L
+@{
+    Layout = null;
+}
+
+<abp-card>
+    <form method="post" asp-page="/DonViYTes/CreateModal">
+        <abp-modal>
+            <abp-modal-header></abp-modal-header>
+            <abp-modal-body>
+                <abp-input asp-for="DonViYTes.TenDonViYTe"></abp-input>
+                <abp-input asp-for="DonViYTes.DiaChi"></abp-input>
+                <abp-input asp-for="DonViYTes.SDT"></abp-input>
+            </abp-modal-body>
+            <abp-modal-footer buttons="@(AbpModalButtons.Cancel| AbpModalButtons.Save)"></abp-modal-footer>
+        </abp-modal>
+    </form>
+</abp-card>

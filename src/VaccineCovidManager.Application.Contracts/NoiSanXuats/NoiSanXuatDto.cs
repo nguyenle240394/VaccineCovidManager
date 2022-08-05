@@ -7,6 +7,7 @@ namespace VaccineCovidManager.NoiSanXuats
 {
     public class NoiSanXuatDto : AuditedEntityDto<Guid>
     {
+        public int Stt { get; set; }
         public string TenNhaSX { get; set; }
         public string Diachi { get; set; }
         public string SDT { get; set; }

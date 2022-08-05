@@ -23,7 +23,7 @@ public class VaccineCovidManagerMenuContributor : IMenuContributor
         var administration = context.Menu.GetAdministration();
         var l = context.GetLocalizer<VaccineCovidManagerResource>();
 
-        context.Menu.Items.Insert(
+        /*context.Menu.Items.Insert(
             0,
             new ApplicationMenuItem(
                 VaccineCovidManagerMenus.Home,
@@ -32,7 +32,7 @@ public class VaccineCovidManagerMenuContributor : IMenuContributor
                 icon: "fas fa-home",
                 order: 0
             )
-        );
+        );*/
 
         context.Menu.AddItem(
                 new ApplicationMenuItem(

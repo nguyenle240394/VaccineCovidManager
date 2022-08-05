@@ -6,6 +6,7 @@ namespace VaccineCovidManager.DonViYTes
 {
     public class DonViYTeDto : AuditedEntityDto<Guid>
     {
+        public int Stt { get; set; }
         public string TenDonViYTe { get; set; }
         public string DiaChi { get; set; }
         public string SDT { get; set; }

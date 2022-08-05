@@ -1,0 +1,24 @@
+﻿@page
+@model VaccineCovidManager.Web.Pages.NoiSanXuats.CreateModalModel
+@using Microsoft.Extensions.Localization
+@using VaccineCovidManager.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@inject IStringLocalizer<VaccineCovidManagerResource> L
+@{
+    Layout = null;
+}
+
+<abp-card>
+    <form method="post" asp-page="/NoiSanXuats/CreateModal">
+        <abp-modal>
+            <abp-modal-header></abp-modal-header>
+            <abp-modal-body>
+                <abp-input asp-for="NoiSanXuats.TenNhaSX"></abp-input>
+                <abp-input asp-for="NoiSanXuats.Diachi"></abp-input>
+                <abp-input asp-for="NoiSanXuats.SDT"></abp-input>
+                <abp-input asp-for="NoiSanXuats.Email"></abp-input>
+            </abp-modal-body>
+            <abp-modal-footer buttons="@(AbpModalButtons.Cancel| AbpModalButtons.Save)"></abp-modal-footer>
+        </abp-modal>
+    </form>
+</abp-card>
