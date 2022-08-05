@@ -1,7 +1,11 @@
 ﻿@page
 @model VaccineCovidManager.Web.Pages.DonViYTes.IndexModel
 @using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Authorization
 @using VaccineCovidManager.Localization
+@using VaccineCovidManager.Permissions
+@inject IAuthorizationService AuthorizationService
 @inject IStringLocalizer<VaccineCovidManagerResource> L
 @section scripts
 {
@@ -14,10 +18,13 @@
         <abp-card-title>@L["Đơn vị Y tế"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
+            @if (await AuthorizationService.IsGrantedAsync(VaccineCovidManagerPermissions.DonViYTes.Create))
+            {
                 <abp-button id="DonViYTeButton"
                             text="@L["Tạo mới Đơn vị Y tế"].Value"
                             icon="plus"
                             button-type="Primary" />
+            }
             </abp-column>
         </abp-row>
     </abp-card-header>

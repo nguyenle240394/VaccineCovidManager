@@ -38,6 +38,8 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using VaccineCovidManager.Permissions;
 
 namespace VaccineCovidManager.Web;
 
@@ -86,6 +88,29 @@ public class VaccineCovidManagerWebModule : AbpModule
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
+
+        Configure<RazorPagesOptions>(options =>
+        {
+            options.Conventions.AuthorizePage("/VaccineCovids/Index", VaccineCovidManagerPermissions.VaccineCovids.Default);
+            options.Conventions.AuthorizePage("/VaccineCovids/CreateModal", VaccineCovidManagerPermissions.VaccineCovids.Create);
+            options.Conventions.AuthorizePage("/VaccineCovids/EditModal", VaccineCovidManagerPermissions.VaccineCovids.Edit);
+
+            options.Conventions.AuthorizePage("/NoiSanXuats/Index", VaccineCovidManagerPermissions.NoiSanXuats.Default);
+            options.Conventions.AuthorizePage("/NoiSanXuats/CreateModal", VaccineCovidManagerPermissions.NoiSanXuats.Create);
+            options.Conventions.AuthorizePage("/NoiSanXuats/EditModal", VaccineCovidManagerPermissions.NoiSanXuats.Edit);
+
+            options.Conventions.AuthorizePage("/DonViYTes/Index", VaccineCovidManagerPermissions.DonViYTes.Default);
+            options.Conventions.AuthorizePage("/DonViYTes/CreateModal", VaccineCovidManagerPermissions.DonViYTes.Create);
+            options.Conventions.AuthorizePage("/DonViYTes/EditModal", VaccineCovidManagerPermissions.DonViYTes.Edit);
+
+            options.Conventions.AuthorizePage("/ChiTietNhaps/Index", VaccineCovidManagerPermissions.ChiTietNhaps.Default);
+            options.Conventions.AuthorizePage("/ChiTietNhaps/CreateModal", VaccineCovidManagerPermissions.ChiTietNhaps.Create);
+            options.Conventions.AuthorizePage("/ChiTietNhaps/EditModal", VaccineCovidManagerPermissions.ChiTietNhaps.Edit);
+
+            options.Conventions.AuthorizePage("/ChiTietXuats/Index", VaccineCovidManagerPermissions.ChiTietXuats.Default);
+            options.Conventions.AuthorizePage("/ChiTietXuats/CreateModal", VaccineCovidManagerPermissions.ChiTietXuats.Create);
+            options.Conventions.AuthorizePage("/ChiTietXuats/EditModal", VaccineCovidManagerPermissions.ChiTietXuats.Edit);
+        });
     }
 
     private void ConfigureUrls(IConfiguration configuration)

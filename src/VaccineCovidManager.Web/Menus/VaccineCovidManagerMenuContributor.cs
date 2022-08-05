@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using VaccineCovidManager.Localization;
 using VaccineCovidManager.MultiTenancy;
+using VaccineCovidManager.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
@@ -34,36 +35,51 @@ public class VaccineCovidManagerMenuContributor : IMenuContributor
             )
         );*/
 
-        context.Menu.AddItem(
-                new ApplicationMenuItem(
-                        "VaccineCoidManager.VaccineCovids",
-                        l["Menu:VaccineCovids"],
-                        url: "/VaccineCovids")
-            );
-        context.Menu.AddItem(
+        if (await context.IsGrantedAsync(VaccineCovidManagerPermissions.NoiSanXuats.Default))
+        {
+            context.Menu.AddItem(
                 new ApplicationMenuItem(
                         "VaccineCoidManager.NoiSanXuats",
                         l["Menu:NoiSanXuats"],
                         url: "/NoiSanXuats")
             );
-        context.Menu.AddItem(
+        }
+        if (await context.IsGrantedAsync(VaccineCovidManagerPermissions.DonViYTes.Default))
+        {
+            context.Menu.AddItem(
                 new ApplicationMenuItem(
                         "VaccineCoidManager.DonViYTes",
                         l["Menu:DonViYTes"],
                         url: "/DonViYTes")
             );
-        context.Menu.AddItem(
+        }
+        if (await context.IsGrantedAsync(VaccineCovidManagerPermissions.ChiTietNhaps.Default))
+        {
+            context.Menu.AddItem(
                 new ApplicationMenuItem(
                         "VaccineCoidManager.ChiTietNhaps",
                         l["Menu:ChiTietNhaps"],
                         url: "/ChiTietNhaps")
             );
-        context.Menu.AddItem(
+        }
+        if (await context.IsGrantedAsync(VaccineCovidManagerPermissions.ChiTietXuats.Default))
+        {
+            context.Menu.AddItem(
                 new ApplicationMenuItem(
                         "VaccineCoidManager.ChiTietXuats",
                         l["Menu:ChiTietXuats"],
                         url: "/ChiTietXuats")
             );
+        }
+        if (await context.IsGrantedAsync(VaccineCovidManagerPermissions.VaccineCovids.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(
+                        "VaccineCoidManager.VaccineCovids",
+                        l["Menu:VaccineCovids"],
+                        url: "/VaccineCovids")
+            );
+        }
 
         if (MultiTenancyConsts.IsEnabled)
         {

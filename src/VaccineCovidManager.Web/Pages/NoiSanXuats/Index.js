@@ -52,7 +52,7 @@ $(function () {
                                 {
                                     text: l('Sửa'),
                                     iconClass: "fa fa-pencil-square-o",
-                                    //visible: abp.auth.isGranted('VaccinecovidManager.NoiSanXuats.Edit'),
+                                    visible: abp.auth.isGranted('VaccinecovidManager.NoiSanXuats.Edit'),
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
                                     }
@@ -60,7 +60,7 @@ $(function () {
                                 {
                                     text: l('Xóa'),
                                     iconClass: "fa fa-trash-o",
-                                    //visible: abp.auth.isGranted('VaccinecovidManager.NoiSanXuats.Delete'),
+                                    visible: abp.auth.isGranted('VaccinecovidManager.NoiSanXuats.Delete'),
                                     confirmMessage: function (data) {
                                         return l(
                                             'Thông báo Xác nhận xóa Nhà sản xuất',

@@ -1,12 +1,9 @@
-﻿var datatable;
-var l;
+﻿
 $(function () {
-    l = abp.localization.getResource('VaccineCovidManager');
-    var createModal = new abp.ModalManager({
-        viewUrl: abp.appPath + 'ChiTietXuats/CreateModal',
-    });
+    var l = abp.localization.getResource('VaccineCovidManager');
+    var createModal = new abp.ModalManager(abp.appPath + 'ChiTietXuats/CreateModal');
     
-    datatable = $('#XuatVaccineTable').DataTable(
+    var datatable = $('#XuatVaccineTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
             paging: true,

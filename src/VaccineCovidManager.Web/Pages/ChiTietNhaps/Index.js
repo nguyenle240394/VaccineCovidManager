@@ -1,13 +1,10 @@
-﻿var datatable;
-var l;
+﻿
 $(function () {
     console.log("test1")
-    l = abp.localization.getResource('VaccinecovidManager');
-    var createModal = new abp.ModalManager({
-        viewUrl: abp.appPath + 'ChiTietNhaps/CreateModal',
-    });
+    var l = abp.localization.getResource('VaccinecovidManager');
+    var createModal = new abp.ModalManager(abp.appPath + 'ChiTietNhaps/CreateModal');
 
-    datatable = $('#NhapVaccineTable').DataTable(
+    var datatable = $('#NhapVaccineTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
             paging: true,
@@ -61,5 +58,4 @@ $(function () {
         e.preventDefault();
         createModal.open();
     });
-    
 })

@@ -1,7 +1,11 @@
 ﻿@page
 @model VaccineCovidManager.Web.Pages.VaccineCovids.IndexModel
 @using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Authorization
 @using VaccineCovidManager.Localization
+@using VaccineCovidManager.Permissions
+@inject IAuthorizationService AuthorizationService
 @inject IStringLocalizer<VaccineCovidManagerResource> L
 @section scripts
 {
@@ -14,10 +18,13 @@
                 <abp-card-title>@L["Vaccine Covid"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
+            @if (await AuthorizationService.IsGrantedAsync(VaccineCovidManagerPermissions.VaccineCovids.Create))
+            {
                 <abp-button id="VaccineCovidButton"
-                            text="@L["Tạo mới Vaccine"].Value"
-                            icon="plus"
-                            button-type="Primary" />
+                        text="@L["Tạo mới Vaccine"].Value"
+                        icon="plus"
+                        button-type="Primary" />
+            }
             </abp-column>
         </abp-row>
     </abp-card-header>
