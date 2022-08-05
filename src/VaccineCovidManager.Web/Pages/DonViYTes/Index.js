@@ -48,7 +48,7 @@ $(function () {
                                 {
                                     text: l('Sửa'),
                                     iconClass: "fa fa-pencil-square-o",
-                                    visible: abp.auth.isGranted('VaccinecovidManager.DonViYTes.Edit'),
+                                    visible: abp.auth.isGranted('VaccineCovidManager.DonViYTes.Edit'),
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
                                     }
@@ -56,7 +56,7 @@ $(function () {
                                 {
                                     text: l('Xóa'),
                                     iconClass: "fa fa-trash-o",
-                                    visible: abp.auth.isGranted('VaccinecovidManager.DonViYTes.Delete'),
+                                    visible: abp.auth.isGranted('VaccineCovidManager.DonViYTes.Delete'),
                                     confirmMessage: function (data) {
                                         return l(
                                             'Thông báo Xác nhận xóa Đơn vị Y tế',
