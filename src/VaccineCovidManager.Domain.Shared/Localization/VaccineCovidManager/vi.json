@@ -6,7 +6,7 @@
     "Menu:DonViYTes": "Đơn vị Y tế",
     "Menu:ChiTietNhaps": "Vaccine nhập",
     "Menu:ChiTietXuats": "Vaccine xuất",
-    "Menu:VaccineCovids": "Vaccine Covid",
+    "Menu:VaccineCovids": "Vaccine tồn kho",
     "Welcome": "Chào mừng bạn",
     "LongWelcomeMessage": "Chào mừng bạn đến ứng dụng. Đây là một dự án khởi nghiệp dựa trên khung ABP. Để biết thêm thông tin, hãy truy cập abp.io.",
     "Permission:VaccineCovidManager": "Quản lý Vaccine Covid",
