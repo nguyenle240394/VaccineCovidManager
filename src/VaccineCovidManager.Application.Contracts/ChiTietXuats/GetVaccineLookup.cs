@@ -7,6 +7,6 @@ namespace VaccineCovidManager.ChiTietXuats
 {
     public class GetVaccineLookup : EntityDto<Guid>
     {
-        public string TenVaccines { get; set; }
+        public string TenVaccine { get; set; }
     }
 }

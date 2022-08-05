@@ -2,9 +2,9 @@
 var l;
 $(function () {
     l = abp.localization.getResource('VaccineCovidManager');
-    /*var createModal = new abp.ModalManager({
+    var createModal = new abp.ModalManager({
         viewUrl: abp.appPath + 'ChiTietXuats/CreateModal',
-    });*/
+    });
     
     datatable = $('#XuatVaccineTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
@@ -40,13 +40,13 @@ $(function () {
             ]
         })
     );
-    /*createModal.onResult(function () {
+    createModal.onResult(function () {
         datatable.ajax.reload();
     });
 
-    $('#NhapVaccine').click(function (e) {
+    $('#XuatVaccine').click(function (e) {
         e.preventDefault();
         createModal.open();
-    });*/
+    });
 
 })

@@ -35,6 +35,15 @@ namespace VaccineCovidManager.ChiTietXuats
             throw new NotImplementedException();
         }
 
+        public async Task<ListResultDto<GetDonViYTeLookup>> GetDonViYTeLookup()
+        {
+            var donViYTes = await _donViYTeRepository.GetListAsync();
+            var conViYTeLookups = ObjectMapper.Map<List<DonViYTe>, List<GetDonViYTeLookup>>(donViYTes);
+            return new ListResultDto<GetDonViYTeLookup>(
+                    conViYTeLookups
+                );
+        }
+
         public async Task<PagedResultDto<ChiTietXuatDto>> GetListAsync(GetChiTietXuatInput input)
         {
             if (input.Sorting.IsNullOrWhiteSpace())
@@ -62,6 +71,13 @@ namespace VaccineCovidManager.ChiTietXuats
                     count, 
                     chiTietXuatDto
                 );
+        }
+
+        public async Task<ListResultDto<GetVaccineLookup>> GetVaccineLookup()
+        {
+            var vaccines = await _vaccineCovidRepository.GetListAsync();
+            var vaccineLookups = ObjectMapper.Map<List<VaccineCovid>, List<GetVaccineLookup>>(vaccines);
+            return new ListResultDto<GetVaccineLookup>(vaccineLookups);
         }
 
         public Task<ChiTietXuatDto> UpdateAsync(Guid id, CreateUpdateChiTietXuatDto input)

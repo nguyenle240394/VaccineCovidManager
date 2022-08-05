@@ -13,5 +13,7 @@ namespace VaccineCovidManager.ChiTietXuats
         Task<ChiTietXuatDto> CreateAsync(CreateUpdateChiTietXuatDto input);
         Task<ChiTietXuatDto> UpdateAsync(Guid id, CreateUpdateChiTietXuatDto input);
         Task<bool> DeleteAsync(Guid id);
+        Task<ListResultDto<GetDonViYTeLookup>> GetDonViYTeLookup();
+        Task<ListResultDto<GetVaccineLookup>> GetVaccineLookup();
     }
 }
