@@ -15,5 +15,6 @@ namespace VaccineCovidManager.NoiSanXuats
                 string sorting,
                 string filter
             );
+        Task<NoiSanXuat> FindByNoiSanXuatWithIDAsync(Guid id);
     }
 }
