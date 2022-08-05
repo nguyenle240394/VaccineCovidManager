@@ -1,0 +1,27 @@
+﻿@page
+@model VaccineCovidManager.Web.Pages.ChiTietXuats.IndexModel
+@using Microsoft.Extensions.Localization
+@using VaccineCovidManager.Localization
+@inject IStringLocalizer<VaccineCovidManagerResource> L
+@section scripts
+{
+    <abp-script src="/Pages/ChiTietXuats/Index.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Xuất Vaccine"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="XuatVaccine"
+                            text="@L["Xuất vaccine"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="XuatVaccineTable"/>
+    </abp-card-body>
+</abp-card>

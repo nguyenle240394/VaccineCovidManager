@@ -1,47 +1,34 @@
 ﻿var datatable;
 var l;
 $(function () {
-    console.log("test1")
-    l = abp.localization.getResource('VaccinecovidManager');
+    l = abp.localization.getResource('VaccineCovidManager');
     var createModal = new abp.ModalManager({
-        viewUrl: abp.appPath + 'ChiTietNhaps/CreateModal',
+        viewUrl: abp.appPath + 'ChiTietXuats/CreateModal',
     });
-
-    datatable = $('#NhapVaccineTable').DataTable(
+    
+    datatable = $('#XuatVaccineTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
             paging: true,
             order: [[1, "asc"]],
             searching: true,
             scrollX: true,
-            ajax: abp.libs.datatables.createAjax(vaccineCovidManager.chiTietNhaps.chiTietNhap.getList),
+            ajax: abp.libs.datatables.createAjax(vaccineCovidManager.chiTietXuats.chiTietXuat.getList),
             columnDefs: [
-                {
-                    title: l("STT"),
-                    data: 'stt'
-                },
-                {
-                    title: l("Nhà sản xuất"),
-                    data: "tenNoiSX"
-                },
                 {
                     title: l("Vaccine"),
                     data: "tenVaccine"
                 },
                 {
-                    title: l("Ngày sản xuất"),
-                    data: "ngaySx"
+                    title: l("Đơn vị y tế"),
+                    data: "donViYTe"
                 },
                 {
-                    title: l("Hạn sử dụng"),
-                    data: "hanSuDung"
+                    title: l("Số lượng xuất"),
+                    data: "soLuongXuat"
                 },
                 {
-                    title: l("Số lượng nhập"),
-                    data: "slNhap"
-                },
-                {
-                    title: l('Thời gian nhập'), data: "creationTime",
+                    title: l('Thời gian xuất'), data: "creationTime",
                     render: function (data) {
                         return luxon
                             .DateTime
@@ -56,10 +43,10 @@ $(function () {
     createModal.onResult(function () {
         datatable.ajax.reload();
     });
-    
-    $('#NhapVaccine').click(function (e) {
+
+    $('#XuatVaccine').click(function (e) {
         e.preventDefault();
         createModal.open();
     });
-    
+
 })

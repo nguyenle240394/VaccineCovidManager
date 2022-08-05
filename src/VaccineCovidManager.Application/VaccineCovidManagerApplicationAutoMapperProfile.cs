@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VaccineCovidManager.ChiTietNhaps;
+using VaccineCovidManager.ChiTietXuats;
 using VaccineCovidManager.DonViYTes;
 using VaccineCovidManager.NoiSanXuats;
 using VaccineCovidManager.VaccineCovids;
@@ -23,5 +24,9 @@ public class VaccineCovidManagerApplicationAutoMapperProfile : Profile
         CreateMap<ChiTietNhap, ChiTietNhapDto>();
         CreateMap<NoiSanXuat, GetNoiSanXuatLookup>();
         CreateMap<VaccineCovid, GetVaccineCovidLookup>();
+        CreateMap<CreateUpdateChiTietXuatDto, ChiTietXuat>();
+        CreateMap<ChiTietXuat, ChiTietXuatDto>();
+        CreateMap<VaccineCovid, GetVaccineLookup>();
+        CreateMap<DonViYTe, GetDonViYTeLookup>();
     }
 }
