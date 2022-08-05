@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,22 @@ namespace VaccineCovidManager.DonViYTes
         {
         }
 
-        public async Task<List<DonViYTe>> GetListAsync(int skipCount, int maxResultCount, string sorting, string filter)
+        public async Task<List<DonViYTe>> GetListAsync(
+            int skipCount,
+            int maxResultCount,
+            string sorting,
+            string filter)
         {
+
             var queryable = await GetMongoQueryableAsync();
             return await queryable
+                .WhereIf<DonViYTe, IMongoQueryable<DonViYTe>>(
+                    !filter.IsNullOrWhiteSpace(),
+                    DonViYTe => DonViYTe.TenDonViYTe.Contains(filter))
+                .OrderByDescending(x => x.CreationTime)
+                .As<IMongoQueryable<DonViYTe>>()
+                .Skip(skipCount)
+                .Take(maxResultCount)
                 .ToListAsync();
         }
     }
